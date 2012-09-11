@@ -12,13 +12,6 @@ namespace CacheDiSample.WindsorInstallers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            //container.Register(Classes.FromAssemblyContaining<CacheDiSample.DataAccess.BlogRepository>()
-            //                    .BasedOn<CacheDiSample.Domain.Repositories.IRepository>()
-            //                    .LifestyleTransient()
-            //                    .Configure(component => component.DependsOn(new 
-            //                    {
-            //                        nameOrConnectionString = "BloggingContext"
-            //                    })));
 
             // Use Castle Windsor implicit wiring for the block repository decorator
             // Register the outermost decorator first

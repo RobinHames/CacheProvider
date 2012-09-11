@@ -7,11 +7,7 @@ using CacheDiSample.Domain.Model;
 
 namespace CacheDiSample.Domain.Repositories
 {
-    public interface IRepository
-    {
-    }
-
-    public interface IRepository<T> : IRepository
+    public interface IRepository<T>
         where T : EntityBase
     {
         T GetById(int id);
