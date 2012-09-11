@@ -9,7 +9,6 @@ using CacheDiSample.Domain.Model;
 
 namespace CacheDiSample.Controllers
 {
-
     public class HomeController : Controller
     {
         private readonly IBlogRepository blogRepository;
