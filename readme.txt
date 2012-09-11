@@ -1,0 +1,1 @@
+This is sample CacheProvider code, descibed on my blog http://geekswithblogs.net/Rhames/Default.aspx
