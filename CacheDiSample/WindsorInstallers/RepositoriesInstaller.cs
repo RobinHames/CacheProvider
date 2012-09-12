@@ -13,12 +13,12 @@ namespace CacheDiSample.WindsorInstallers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
 
-            // Use Castle Windsor implicit wiring for the block repository decorator
+            // Use Castle Windsor implicit wiring for the blog repository decorator
             // Register the outermost decorator first
             container.Register(Component.For<IBlogRepository>()
                 .ImplementedBy<BlogRepositoryWithCaching>()
                 .LifestyleTransient());
-            // Next register the IBlogRepository inmplementation to inject into the outer decorator
+            // Next register the IBlogRepository implementation to inject into the outer decorator
             container.Register(Component.For<IBlogRepository>()
                 .ImplementedBy<BlogRepository>()
                 .LifestyleTransient()
