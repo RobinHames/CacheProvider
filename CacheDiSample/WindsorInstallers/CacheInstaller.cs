@@ -1,9 +1,10 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Castle.Facilities.TypedFactory;
 
-using CacheDiSample.Domain;
-using CacheDiSample.CacheProvider;
+using CacheDiSample.Domain.CacheInterfaces;
+using CacheDiSample.CacheProviders;
 
 namespace CacheDiSample.WindsorInstallers
 {
@@ -15,6 +16,22 @@ namespace CacheDiSample.WindsorInstallers
                 Component.For(typeof(ICacheProvider<>))
                 .ImplementedBy(typeof(CacheProvider<>))
                 .LifestyleTransient());
+
+            container.Register(
+                Component.For<ISqlCacheDependency>()
+                .ImplementedBy<AspNetSqlCacheDependency>()
+                .LifestyleTransient());
+
+            container.Register(
+                Component.For<IKeyCacheDependency>()
+                .ImplementedBy<AspNetKeyCacheDependency>()
+                .LifestyleTransient());
+
+            container.AddFacility<TypedFactoryFacility>();
+
+            container.Register(
+                Component.For<ICacheDependencyFactory>()
+                .AsFactory());
         }
     }
 }

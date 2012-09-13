@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using CacheDiSample.Domain.Model;
-using CacheDiSample.Domain;
+using CacheDiSample.Domain.CacheInterfaces;
 using CacheDiSample.Domain.Repositories;
 
 namespace CacheDiSample.Domain.CacheDecorators
@@ -54,18 +54,21 @@ namespace CacheDiSample.Domain.CacheDecorators
                 null, relativeCacheExpiry);
         }
 
-        public IList<Blog> GetAll()
-        {
-            string key = string.Format("CacheDiSample.DataAccess.GetAll");
+public IList<Blog> GetAll()
+{
+    var sqlCacheDependency = cacheProvider.CreateCacheDependency<ISqlCacheDependency>()
+        .Initialise("BloggingContext", "Blogs");
 
-            // hard code 5 minute expiry!
-            TimeSpan relativeCacheExpiry = new TimeSpan(0, 5, 0);
-            return cacheProvider.Fetch(key, () =>
-            {
-                return parentBlogRepository.GetAll();
-            },
-                null, relativeCacheExpiry)
-            .ToList();
-        }
+    ICacheDependency[] cacheDependencies = new ICacheDependency[] { sqlCacheDependency };
+
+    string key = string.Format("CacheDiSample.DataAccess.GetAll");
+
+    return cacheProvider.Fetch(key, () =>
+    {
+        return parentBlogRepository.GetAll();
+    },
+        null, null, cacheDependencies)
+    .ToList();
+}
     }
 }

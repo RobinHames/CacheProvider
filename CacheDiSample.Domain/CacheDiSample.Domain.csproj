@@ -41,7 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheDecorators\BlogRepositoryWithCaching.cs" />
-    <Compile Include="ICacheProvider.cs" />
+    <Compile Include="CacheInterfaces\ICacheDependency.cs" />
+    <Compile Include="CacheInterfaces\ICacheDependencyFactory.cs" />
+    <Compile Include="CacheInterfaces\ICacheProvider.cs" />
+    <Compile Include="CacheInterfaces\IKeyCacheDependency.cs" />
+    <Compile Include="CacheInterfaces\ISqlCacheDependency.cs" />
     <Compile Include="Model\Blog.cs" />
     <Compile Include="Model\EntityBase.cs" />
     <Compile Include="Model\Post.cs" />
