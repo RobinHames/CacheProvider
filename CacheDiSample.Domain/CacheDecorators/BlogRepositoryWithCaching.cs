@@ -54,21 +54,21 @@ namespace CacheDiSample.Domain.CacheDecorators
                 null, relativeCacheExpiry);
         }
 
-public IList<Blog> GetAll()
-{
-    var sqlCacheDependency = cacheProvider.CreateCacheDependency<ISqlCacheDependency>()
-        .Initialise("BloggingContext", "Blogs");
+        public IList<Blog> GetAll()
+        {
+            var sqlCacheDependency = cacheProvider.CreateCacheDependency<ISqlCacheDependency>()
+                .Initialise("BloggingContext", "Blogs");
 
-    ICacheDependency[] cacheDependencies = new ICacheDependency[] { sqlCacheDependency };
+            ICacheDependency[] cacheDependencies = new ICacheDependency[] { sqlCacheDependency };
 
-    string key = string.Format("CacheDiSample.DataAccess.GetAll");
+            string key = string.Format("CacheDiSample.DataAccess.GetAll");
 
-    return cacheProvider.Fetch(key, () =>
-    {
-        return parentBlogRepository.GetAll();
-    },
-        null, null, cacheDependencies)
-    .ToList();
-}
+            return cacheProvider.Fetch(key, () =>
+            {
+                return parentBlogRepository.GetAll();
+            },
+                null, null, cacheDependencies)
+            .ToList();
+        }
     }
 }
